@@ -6,7 +6,8 @@
 #include "GUI_BMPfile.h"
 #include "Debug.h"
 
-#include <stdlib.h>#include <unistd.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 void  Handler(int signo)
 {
@@ -27,7 +28,7 @@ int main()
 	printf("e-Paper Init and Clear...\r\n");
     EPD_5in83_V2_Init();
 
-	Paint_DrawString_EN(10, 10, "hello world!", &Font16, BLACK, WHITE)
+	Paint_DrawString_EN(10, 10, "hello world!", &Font16, BLACK, WHITE);
 
 	sleep(10);
 	EPD_5in83_V2_Clear();
