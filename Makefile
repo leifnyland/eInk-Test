@@ -220,8 +220,8 @@ else ifeq ($(EPD), epd13in3k)
 	OBJ_C_EPD = ${DIR_EPD}/EPD_13in3k.c
 	OBJ_C_Examples = ${DIR_Examples}/EPD_13in3k_test.c
 else 
-    OBJ_C_EPD = NULL
-    OBJ_C_Examples = NULL
+	OBJ_C_EPD = ${DIR_EPD}/EPD_5in83_V2.c
+	OBJ_C_Examples = ${DIR_Examples}/EPD_5in83_V2_test.c
 endif
 
 OBJ_C = $(wildcard ${OBJ_C_EPD} ${DIR_GUI}/*.c ${OBJ_C_Examples} ${DIR_Examples}/main.c ${DIR_Examples}/ImageData2.c ${DIR_Examples}/ImageData.c ${DIR_FONTS}/*.c )
