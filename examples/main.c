@@ -48,7 +48,7 @@ int main()
     // 4. Send buffer to the actual display
     EPD_5in83_V2_Display(BlackImage);
 
-    sleep(10);
+    sleep(50);
     EPD_5in83_V2_Clear();
     DEV_Module_Exit();
     free(BlackImage);
