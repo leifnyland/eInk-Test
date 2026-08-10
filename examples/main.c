@@ -1,7 +1,12 @@
 #include <stdlib.h>     //exit()
 #include <signal.h>     //signal()
-#include "EPD_Test.h"   //Examples
-#include <unistd.h>
+// from test/examples
+#include "DEV_Config.h"
+#include "GUI_Paint.h"
+#include "GUI_BMPfile.h"
+#include "Debug.h"
+
+#include <stdlib.h>#include <unistd.h>
 
 void  Handler(int signo)
 {
