@@ -5,6 +5,7 @@
 #include "GUI_Paint.h"
 #include "GUI_BMPfile.h"
 #include "Debug.h"
+#include "EPD_5in83_V2.h"
 
 #include <stdlib.h>
 #include <unistd.h>
