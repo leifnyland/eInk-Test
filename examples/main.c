@@ -21,18 +21,37 @@ void  Handler(int signo)
 
 int main()
 {
-    // Exception handling:ctrl + c
     signal(SIGINT, Handler);
     if(DEV_Module_Init()!=0){
         return -1;
     }
-	printf("e-Paper Init and Clear...\r\n");
+    printf("e-Paper Init and Clear...\r\n");
     EPD_5in83_V2_Init();
+    EPD_5in83_V2_Clear();  // clear panel before drawing, not after
 
-	Paint_DrawString_EN(10, 10, "hello world!", &Font16, BLACK, WHITE);
+    // 1. Allocate a buffer for the image
+    UBYTE *BlackImage;
+    UWORD Imagesize = ((EPD_5in83_V2_WIDTH % 8 == 0)? (EPD_5in83_V2_WIDTH / 8 ): (EPD_5in83_V2_WIDTH / 8 + 1)) * EPD_5in83_V2_HEIGHT;
+    if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) {
+        printf("Failed to apply for black memory...\r\n");
+        return -1;
+    }
 
-	sleep(10);
-	EPD_5in83_V2_Clear();
-	DEV_Module_Exit();
-	return 0;
+    // 2. Tell Paint library about this buffer
+    Paint_NewImage(BlackImage, EPD_5in83_V2_WIDTH, EPD_5in83_V2_HEIGHT, 0, WHITE);
+    Paint_SelectImage(BlackImage);
+    Paint_Clear(WHITE);
+
+    // 3. Now draw into it
+    Paint_DrawString_EN(10, 10, "hello world!", &Font16, BLACK, WHITE);
+
+    // 4. Send buffer to the actual display
+    EPD_5in83_V2_Display(BlackImage);
+
+    sleep(10);
+    EPD_5in83_V2_Clear();
+    DEV_Module_Exit();
+    free(BlackImage);
+    BlackImage = NULL;
+    return 0;
 }
