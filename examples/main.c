@@ -22,10 +22,11 @@ void  Handler(int signo)
 int main()
 {
     signal(SIGINT, Handler);
+	printf("hello world test demo\r\n");
     if(DEV_Module_Init()!=0){
         return -1;
     }
-    printf("e-Paper Init and Clear...\r\n");
+	printf("Init and Clear\r\n");
     EPD_5in83_V2_Init();
     EPD_5in83_V2_Clear();  // clear panel before drawing, not after
 
@@ -38,6 +39,7 @@ int main()
     }
 
     // 2. Tell Paint library about this buffer
+	EPD_5in83_V2_Init();
     Paint_NewImage(BlackImage, EPD_5in83_V2_WIDTH, EPD_5in83_V2_HEIGHT, 0, WHITE);
     Paint_SelectImage(BlackImage);
     Paint_Clear(WHITE);
@@ -48,7 +50,7 @@ int main()
     // 4. Send buffer to the actual display
     EPD_5in83_V2_Display(BlackImage);
 
-    sleep(50);
+    DEV_Delay_ms(5000);
     EPD_5in83_V2_Clear();
     DEV_Module_Exit();
     free(BlackImage);
